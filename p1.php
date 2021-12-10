@@ -25,7 +25,7 @@
 	
 	function callService($port, $data){
 		$host 	= '127.0.0.1';
-		$req = xmlrpc_encode_request("processData", $data);
+		$req = xmlrpc_encode_request("processData", array($data));
 
 		$ctx = stream_context_create(
 			array(
@@ -55,11 +55,14 @@
 		}
 
 		print "Podaj dane do przetworzenia:\n";
-		$data = fgets($stdin); 
+		$data = fgets($stdin);
 		$data = chop($data);
+		$array = explode(" ", $data);
 
-		$resp = callService($servicePort, $data); 
-		print "Odpowiedź to '$resp'\n\n"; 
+		$resp = callService($servicePort, $array); 
+		$respStr = implode(" ", $resp);
+
+		print "Odpowiedź to '$respStr'\n\n"; 
 
 		fgets($stdin); 
 	}

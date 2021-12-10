@@ -7,8 +7,9 @@ address = ('127.0.0.1', 9001)
 server = SimpleXMLRPCServer(address, logRequests=0) 
 
 class Server2:
-    def processData(self, msg):
-        return msg[::-1]
+    def processData(self, params):
+        rev_list = [each_string[::-1] for each_string in params]
+        return rev_list
 
 if __name__ == '__main__':
     try:
